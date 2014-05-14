@@ -1,4 +1,4 @@
-angular.module('app', ['model'])
+angular.module('app', ['model.manager'])
   .controller('mainController', function($scope, $model){
     window.$model = $model;
     $scope.models = $model.get();

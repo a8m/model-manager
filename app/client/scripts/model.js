@@ -54,6 +54,5 @@ function $ModelProvider(){
 
 
 
-
-angular.module('model', [])
+angular.module('model.manager', [])
   .provider('$model', $ModelProvider);
