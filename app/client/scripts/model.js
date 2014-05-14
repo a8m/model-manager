@@ -3,12 +3,13 @@ function $ModelProvider(){
 
   var $model = {}, models = {};
 
-  var modelConfig = {
+  var modelBuilder = {
     register: function(name, config){
       var model = models[name];
       _.extend(model, config);
     }
   };
+  var modelConfig = {};
 
   function registerModel(name, config){
     if(_.has(models, name)) throw new Error('model is already defined');
@@ -20,7 +21,7 @@ function $ModelProvider(){
     if(_.isEmpty(config)) return this;
 
     /*call config and set model properties*/
-    modelConfig.register(name, config);
+    modelBuilder.register(name, config);
     return this;
   }
 
