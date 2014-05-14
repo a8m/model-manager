@@ -49,10 +49,15 @@ function $ModelProvider(){
 }
 
 
+function $ResourceProvider(){
 
+  this.$get =[function(){
 
+  }];
+}
 
 
 
 angular.module('model.manager', [])
-  .provider('$model', $ModelProvider);
+  .provider('$model', $ModelProvider)
+  .provider('$resource', $ResourceProvider);
