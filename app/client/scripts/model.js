@@ -40,9 +40,6 @@ function $ModelProvider(){
     };
 
 
-
-
-
     return $model;
   }];
 
@@ -51,7 +48,12 @@ function $ModelProvider(){
 
 function $ResourceProvider(){
 
-  this.$get =[function(){
+  this.$get =['$http', '$q', function($http, $q){
+
+    var $resource = {};
+
+
+    return $resource;
 
   }];
 }
