@@ -1,4 +1,5 @@
 'use strict';
+
 function $ModelProvider(){
 
   var $model = {}, models = {};
@@ -10,6 +11,7 @@ function $ModelProvider(){
     }
   };
   var modelConfig = {};
+
 
   function registerModel(name, config){
     if(_.has(models, name)) throw new Error('model is already defined');
@@ -27,8 +29,22 @@ function $ModelProvider(){
 
   this.model = registerModel;
 
-  this.$get = [function(){
+  this.$get = $get;
+  $get.$inject = ['Restangular'];
+  function $get(Resource){
+   var one = Resource.one, all = Resource.all;
 
+    modelConfig.default = {
+      actions: {
+        get: function(id){
+          var request = (!id) ? one('users') : one('users', id);
+          return request.get();
+        }
+
+      }
+    };
+
+    //return current model || list
     $model.get = function(name){
       if(_.has(models, name)) return models[name];
 
@@ -39,27 +55,13 @@ function $ModelProvider(){
       return list;
     };
 
-
+    $model.rest = Resource;
+    $model.$get = modelConfig.default.actions.get;
     return $model;
-  }];
+  };
 
 }
 
+angular.module('model.manager', ['restangular'])
+  .provider('$model', $ModelProvider);
 
-function $ResourceProvider(){
-
-  this.$get =['$http', '$q', function($http, $q){
-
-    var $resource = {};
-
-
-    return $resource;
-
-  }];
-}
-
-
-
-angular.module('model.manager', [])
-  .provider('$model', $ModelProvider)
-  .provider('$resource', $ResourceProvider);
