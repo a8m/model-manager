@@ -10,9 +10,38 @@ function $ModelProvider(){
       _.extend(model, config);
     }
   };
-  var modelConfig = {};
+  var modelConfig = {
+  };
 
+  //bound restangular
+  function boundRestangular(Restangular){
+    var one = Restangular.one, all = Restangular.all;
+    var actions = {
+      get: function(id){
+        //TODO:make it more generic, build all route in first registration
+        var path = (this.paths) ? setPath(this, 'get') : this.name;
 
+        var request = (!id) ? one(path) : one(path, id);
+        return request.get();
+      },
+      post: function(id){
+        var request = (!id) ? one('users') : one('users', id);
+        return request.post();
+      }
+    };
+    forEach(models, function(model){
+      model.get = actions.get;
+      model.post = actions.post;
+    });
+  }
+  //end bound anguar
+
+  //setPath
+  function setPath(model, actionName){
+    return (_.has(model.paths, actionName)) ? model.paths[actionName] : model.name;
+  }//end setPath
+
+  //register each model
   function registerModel(name, config){
     if(_.has(models, name)) throw new Error('model is already defined');
 
@@ -28,21 +57,14 @@ function $ModelProvider(){
   }
 
   this.model = registerModel;
+  //end register
 
+  //$get function
   this.$get = $get;
   $get.$inject = ['Restangular'];
-  function $get(Resource){
-   var one = Resource.one, all = Resource.all;
+  function $get(Restangular){
 
-    modelConfig.default = {
-      actions: {
-        get: function(id){
-          var request = (!id) ? one('users') : one('users', id);
-          return request.get();
-        }
-
-      }
-    };
+    boundRestangular(Restangular);
 
     //return current model || list
     $model.get = function(name){
@@ -55,13 +77,13 @@ function $ModelProvider(){
       return list;
     };
 
-    $model.rest = Resource;
-    $model.$get = modelConfig.default.actions.get;
+
+    $model.res = Restangular;
     return $model;
   };
+  //end $get function
 
 }
 
 angular.module('model.manager', ['restangular'])
   .provider('$model', $ModelProvider);
-
