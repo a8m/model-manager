@@ -1,0 +1,39 @@
+{
+  "name": "angular-filter",
+  "version": "0.0.22",
+  "main": "./dist/angular-filter.js",
+  "description": "Bunch of useful filters for angularJS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a8m/angular-filter.git"
+  },
+  "dependencies": {
+    "angular": "1.2.16"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.16"
+  },
+  "ignore": [
+    "**/*",
+    "node_modules",
+    "bower_components",
+    "bower_components",
+    "package.json",
+    "lib",
+    "test",
+    "src",
+    "Gruntfile.js",
+    ".gitignore"
+  ],
+  "homepage": "https://github.com/a8m/angular-filter",
+  "_release": "0.0.22",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.22",
+    "commit": "c98429342a1a43a314ca6fb4f037be212c726712"
+  },
+  "_source": "git://github.com/a8m/angular-filter.git",
+  "_target": "~0.0.22",
+  "_originalSource": "angular-filter",
+  "_direct": true
+}

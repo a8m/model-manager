@@ -3,8 +3,8 @@ var http = require('http'),
   fs = require('fs'),
   app = express();
 
-var iniparser = require('iniparser'),
-  config = iniparser.parseSync('config.ini');
+//var iniparser = require('iniparser'),
+//  config = iniparser.parseSync('config.ini');
 
 //load the route handlers
 var routes = require('./routes'),
@@ -19,6 +19,11 @@ app.set('views', './views');
 // or pass the environment in the kick-start:
 // NODE_ENV=production node app.js
 
+var config = {
+    port: 3000,
+    title: 'foo',
+    message: 'bar'
+};
 
 app.use(express.static('./public'));
 
